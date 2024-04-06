@@ -33,7 +33,6 @@ return (
             </MDBTypography>
             <div>
               <p className="mb-0">
-                <span className="text-muted">Sort by:</span>
                 <a href="#!" className="text-body">
                   price <i className="fas fa-angle-down mt-1"></i>
                 </a>
@@ -76,8 +75,7 @@ return (
                         console.log(newTotal);
                         total = (total - product.price) + newTotal;
                         window.location.reload();
-                        // Update the total with the new price
-                        // You can use a state variable or a separate function to update the total
+
                       }}
                     />
                     <MDBBtn color="link" className="px-2">

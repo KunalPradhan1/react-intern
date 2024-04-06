@@ -10,8 +10,8 @@ import {
   Route,
   NavLink,
 } from "react-router-dom";
-import Cart from './Cart'; // Import your Cart component
-import Home from './Home'; // Import your Home component
+import Cart from './Cart'; 
+import Home from './Home'; 
 
 
 function App() {

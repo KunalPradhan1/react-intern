@@ -10,9 +10,11 @@ import {
   Route,
   NavLink,
 } from "react-router-dom";
-import Cart from './Cart'; // Import your Cart component
+import Cart from './Cart';
+import Alert from 'react-bootstrap/Alert';
 
 function Home() {
+    const [show, setShow] = useState(false);
     const [data, setData] = useState([]);
   useEffect(() => {
     async function fetchData() {
@@ -39,7 +41,7 @@ function Home() {
         setCart([...cart, product]);
     };
     console.log(cart);
-    
+
     useEffect(() => {
         localStorage.setItem("cart", JSON.stringify(cart));
     }, [cart]);
@@ -50,7 +52,7 @@ function Home() {
             <header>
                 <Navbar bg="dark" data-bs-theme="dark" expand="lg" className="bg-body-tertiary">
                     <Container>
-                        <Form inline className="justify-content-center"> {/* Add justify-content-center class */}
+                        <Form inline className="justify-content-center"> 
                             <Row>
                                 <Col xs="auto">
                                     <Form.Control
@@ -59,20 +61,29 @@ function Home() {
                                         className=" mr-sm-2"
                                         onChange={(e) => setInput(e.target.value)}
                                         value={input}
-                                        style={{ width: '400px' }} // Adjust the width here
+                                        style={{ width: '400px' }} 
                                     />
                                 </Col>
                             </Row>
                         </Form>
                     </Container>
                 </Navbar>
+                <Alert show={show} variant="success" dismissible>
+                    <Alert.Heading>Product added to Cart</Alert.Heading>
+                    <hr />
+                    <div className="d-flex justify-content-end">
+                     <Button onClick={() => setShow(false)} variant="outline-success">
+                     Close me
+                     </Button>
+                </div>
+                 </Alert>
             </header>
             <main>
                 <Row classname="px-4 my-5">
                     {filteredData.map((product) => (
                         <Col sm={4}>
-                            <Card style={{ width: '18rem', height: '100%' }}> {/* Add height: '100%' to make all cards the same size */}
-                                <Card.Img variant="top" src={product.thumbnail} style={{ height: '200px', objectFit: 'cover' }} /> {/* Add style to set height and object-fit */}
+                            <Card style={{ width: '18rem', height: '100%' }}> 
+                                <Card.Img variant="top" src={product.thumbnail} style={{ height: '200px', objectFit: 'cover' }} /> 
                                 <Card.Body>
                                     <Card.Title>{product.title}</Card.Title>
                                     <Card.Text>
@@ -80,13 +91,14 @@ function Home() {
                                         <br></br>
                                         ${product.price.toFixed(2)}
                                     </Card.Text>
-                                    <Button variant="primary" onClick={() => addToCart(product)}>Add To Cart</Button>
+                                    <Button variant="primary" onClick={() => {addToCart(product); setShow(true);}}>Add To Cart</Button>
                                 </Card.Body>
                             </Card>
                             <br></br>
                         </Col>
                     ))}
                 </Row>
+
             </main>
         </div>
     );
